@@ -120,8 +120,8 @@ def login():
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_USERNAME'] = 'bhardwajabhi2800@gmail.com'  # Use your email here
-app.config['MAIL_PASSWORD'] = 'gfav yvsl xytt ykvy'  # Use your email password here
+app.config['MAIL_USERNAME'] = ''  # Use your email here
+app.config['MAIL_PASSWORD'] = ''  # Use your email password here
 app.config['MAIL_DEFAULT_SENDER'] = 'bhardwajabhi2800@gmail.com'  # Same as MAIL_USERNAME
 
 mail = Mail(app)
