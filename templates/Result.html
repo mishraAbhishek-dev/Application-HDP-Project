@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction - Result</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #11998e, #38ef7d);
+            color: white;
+        }
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            text-align: center;
+        }
+        .card-title{
+            color: green;
+        }
+        .result-card {
+            background: white;
+            color: black;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .user-data {
+            text-align: left;
+            margin-bottom: 30px;
+            color: black;
+        }
+        .user-data p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="{{ url_for('logout') }}" class="btn btn-danger logout-btn">Logout</a>
+    <div class="container">
+        <div class="result-card">
+            <h3 class="card-title">Heart Disease Prediction Result</h3>
+            <p class="lead"><b>Welcome, {{ username }}!</b></p>
+            
+            <!-- Display entered user data -->
+            <div class="user-data">
+                <h5>Your Entered Details::</h5>
+                <p><strong>Age:</strong> {{ age }}</p>
+                <p><strong>Sex:</strong> {{ sex }}</p>
+                <p><strong>Chest Pain Type:</strong> {{ cp }}</p>
+                <p><strong>Resting Blood Pressure:</strong> {{ trestbps }}</p>
+                <p><strong>Cholesterol:</strong> {{ chol }}</p>
+                <p><strong>Fasting Blood Sugar:</strong> {{ fbs }}</p>
+                <p><strong>Resting Electrocardiographic Results:</strong> {{ restecg }}</p>
+                <p><strong>Exercise Induced Angina:</strong> {{ exang }}</p>
+                <p><strong>Slope:</strong> {{ slope }}</p>
+                <p><strong>Old Peak:</strong> {{ oldpeak }}</p>
+                <p><strong>Number of Major Vessels:</strong> {{ ca }}</p>
+                <p><strong>Thalassemia:</strong> {{ thal }}</p>
+            </div>
+
+            <!-- Prediction Result -->
+            <p><strong>Prediction:</strong> 
+                <p class="fs-4 mt-3">
+                    <span class="{% if 'High' in prediction %}text-danger{% else %}text-success{% endif %}">
+                        {{ prediction }}
+                    </span>
+                </p>
+            </p>
+            
+            <a href="{{ url_for('predict_page') }}" class="btn btn-primary mt-4">Try Again</a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 40px; background-image: url("{{ url_for('static', filename='image2.jpeg') }}"); background-size: cover; }
+        .container { max-width: 500px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;  }
+        input { width: 90%; margin: 10px 0; padding: 8px; }
+        button {
+            background-color: transparent;
+            color: #faebd5;
+            padding: 20px 50px;
+            border-color: rgb(3, 122, 5);
+            border-radius: 36px;
+            cursor: pointer;
+            font-size: 20px;
+            position: relative;
+            z-index: 0;
+            margin-left:20px auto;
+    
+        }
+    button::after{
+            content:" ";
+            z-index: -1;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color:rgba(128, 128, 128, 0.628);
+            left:0;
+            top:0;
+            border-radius: 100px;
+        }
+    button::before{
+            content: "";
+            background: linear-gradient(45deg,#9cdc1d,#38ca10,#1da90d,
+            #03a51e,#14a466,#03743f,#00351a);
+            position: absolute;
+            top: -2px;
+            left:-2px;
+            background-size: 500%;
+            z-index: -1;
+            width: calc(100% + 4px);
+            height: calc(100%  + 4px);
+            filter: blur(8px);
+            animation:glowing 20s linear infinite;
+            transition: opacity .3s ease-in-out;
+            border-radius: 40px;
+            opacity:0;
+        }
+    @keyframes glowing{
+          0%{background-position: 0 0;}
+          50%{background-position: 400% 0;}
+          100%{background-position: 0 0;}
+        }
+    button:hover::before{
+            opacity:1;
+        }
+    button:active:after{
+            background: transparent;
+        }
+    button:active{
+         color: #333;
+         font-weight: bold;
+        }
+        
+        .result { margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Heart Disease Prediction</h2>
+        <form id="predictionForm" action="/predict" method="post">
+            <input type="number" name="age" placeholder="Age" required>
+            <input type="number" name="sex" placeholder="Sex (0 = Female, 1 = Male)" required>
+            <input type="number" name="cp" placeholder="Chest Pain Type (0-3)" required>
+            <input type="number" name="trestbps" placeholder="Resting Blood Pressure" required>
+            <input type="number" name="chol" placeholder="Cholesterol" required>
+            <input type="number" name="fbs" placeholder="Fasting Blood Sugar (0 or 1)" required>
+            <input type="number" name="restecg" placeholder="Resting ECG (0-2)" required>
+            <input type="number" name="thalach" placeholder="Max Heart Rate Achieved" required>
+            <input type="number" name="exang" placeholder="Exercise Induced Angina (0 or 1)" required>
+            <input type="number" name="oldpeak" placeholder="ST Depression" required>
+            <input type="number" name="slope" placeholder="Slope (0-2)" required>
+            <input type="number" name="ca" placeholder="Number of Major Vessels (0-3)" required>
+            <input type="number" name="thal" placeholder="Thalassemia (0-3)" required>
+            <button type="submit">Predict</button>
+        </form>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById("predictionForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            
+            let formData = {};
+            new FormData(this).forEach((value, key) => formData[key] = value);
+
+            const response = await fetch("http://localhost:5000/predict", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+            document.getElementById("result").innerText = 
+                data.prediction ? "Result: Positive for Heart Disease" : "Result: No Heart Disease";
+        });
+    </script>
+
+</body>
+</html>

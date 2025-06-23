@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+            background-image:  url("{{ url_for('static', filename='image3.jpg') }}");
+            background-size: cover;
+            
+        }
+        h1 {
+            font-size: 56px;
+            color: #333;
+        }
+        .button {
+            background-color: white transparent;
+            color: black;
+            padding: 10px 20px;
+            font-size: 20px;
+            
+            cursor: pointer;
+            margin-top: 150px;
+            border-color: black;
+            border-radius: 25px;
+        }
+        .button:hover {
+            background-color:#8fe2f5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Heart Disease Prediction</h1>
+    <button class="button" onclick="window.location.href='/Fcode'">Start Prediction</button>
+</body>
+</html>
